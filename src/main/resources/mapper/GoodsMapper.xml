@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bw.mapper.GoodsDao">
+	
+	<select id="queryGoods" resultType="com.bw.entity.Goods" parameterType="map">
+		select * from t_goods g,t_type t where g.tid = t.tid and g.status = 0
+		<if test="name != null and name != ''">
+			and g.name like concat('%',#{name},'%')
+		</if>
+	</select>
+	
+	<select id="queryType" resultType="com.bw.entity.Type">
+		select * from t_type
+	</select>
+		
+	<insert id="addGoods" parameterType="com.bw.entity.Goods">
+		insert into t_goods 
+		(id,name,tid,price,datea,status) 
+		values 
+		(#{id},#{name},#{tid},#{price},#{datea},#{status})
+	</insert>
+		
+	<update id="deleteGoods">
+		update t_goods set status=1 where id in (${id})
+	</update>
+	
+	<select id="queryGoodsById" parameterType="int" resultType="com.bw.entity.Goods">
+		select * from t_goods where id=#{id}
+	</select>
+	
+</mapper>
