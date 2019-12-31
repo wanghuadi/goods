@@ -35,6 +35,7 @@ public class GoodsController {
 		List<Goods> list = goodsService.queryGoods(map );
 		PageInfo<Goods> page = new PageInfo<Goods>(list);
 		model.addAttribute("page", page);
+		System.out.println();
 		return "list";
 	}
 	
